@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -37,7 +38,7 @@
   .login-btn { display: flex; align-items: center; gap: 12px; padding: 13px 24px; background: var(--surface); border: 0.5px solid var(--border2); border-radius: var(--radius-lg); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); transition: all .15s; margin-bottom: 32px; }
   .login-btn:hover { border-color: var(--green); color: var(--green); }
   .login-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
-  .disclaimer { max-width: 300px; font-size: 12px; color: var(--hint); line-height: 1.7; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 14px 16px; text-align: left; }
+  .disclaimer { max-width: 300px; font-size: 12px; color: var(--hint); line-height: 1.7; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 14px 16px; text-align: justify; }
   .disclaimer strong { color: var(--muted); font-weight: 500; }
 
   /* HEADER */
@@ -196,7 +197,7 @@
   </button>
   <div class="disclaimer">
     <strong>Seus dados, sua privacidade.</strong><br>
-    Seus registros financeiros são armazenados de forma segura e acessíveis apenas por você. Como desenvolvedor do app, tenho acesso técnico ao banco de dados para fins de manutenção — nunca para uso comercial ou compartilhamento com terceiros. Ao entrar, você concorda com esses termos.
+    Seus registros financeiros são armazenados de forma segura e acessíveis apenas por você. Seus dados não serão usados para fins comerciais ou compartilhamento com terceiros. Ao entrar, você concorda com esses termos.
   </div>
 </div>
 
@@ -284,29 +285,54 @@
       <div class="form-row">
         <div class="form-group"><label>categoria</label>
           <select id="f-cat">
-            <option value="moradia">🏠 moradia</option>
-            <option value="alimentacao">🛒 alimentação</option>
-            <option value="transporte">🚗 transporte</option>
-            <option value="saude">💊 saúde</option>
-            <option value="educacao">🎓 educação</option>
-            <option value="lazer">🎵 lazer</option>
-            <option value="vestuario">👕 vestuário</option>
-            <option value="receita">💰 receita</option>
-            <option value="outros">💸 outros</option>
+            <option value="Animais de estimação">🐾 Animais de estimação</option>
+            <option value="Assinaturas digitais">📱 Assinaturas digitais</option>
+            <option value="Casa">🏠 Casa</option>
+            <option value="Comida e bebida">🍽️ Comida e bebida</option>
+            <option value="Compras">🛍️ Compras</option>
+            <option value="Contas e serviços">📄 Contas e serviços</option>
+            <option value="Presentes e doações">🎁 Presentes e doações</option>
+            <option value="Educação">🎓 Educação</option>
+            <option value="Eletrônicos">💻 Eletrônicos</option>
+            <option value="Entretenimento">🎵 Entretenimento</option>
+            <option value="Investimento">📈 Investimento</option>
+            <option value="Roupas">👕 Roupas</option>
+            <option value="Saúde e cuidados pessoais">💊 Saúde e cuidados pessoais</option>
+            <option value="Supermercado">🛒 Supermercado</option>
+            <option value="Transporte">🚗 Transporte</option>
+            <option value="Viagens">✈️ Viagens</option>
+            <option value="Bike">🚲 Bike</option>
+            <option value="Carro">🚘 Carro</option>
+            <option value="Ateliê">🎨 Ateliê</option>
+            <option value="Receita">💰 Receita</option>
+            <option value="Outros">💸 Outros</option>
           </select>
         </div>
         <div class="form-group"><label>subcategoria</label><input type="text" id="f-subcat" placeholder="opcional" list="dl-subcat"/><datalist id="dl-subcat"></datalist></div>
       </div>
 
       <div class="form-row">
-        <div class="form-group"><label>cartão / conta</label><input type="text" id="f-cartao" placeholder="ex: Nubank" list="dl-cartao"/><datalist id="dl-cartao"></datalist></div>
+        <div class="form-group"><label>cartão / conta</label>
+          <select id="f-cartao">
+            <option value="">— selecione —</option>
+            <option value="Nubank">Nubank</option>
+            <option value="Mercado Pago">Mercado Pago</option>
+            <option value="Bradesco">Bradesco</option>
+            <option value="Inter">Inter</option>
+            <option value="C6">C6</option>
+            <option value="99 Pay">99 Pay</option>
+            <option value="Ticket Alimentação">Ticket Alimentação</option>
+            <option value="CEF">CEF</option>
+          </select>
+        </div>
         <div class="form-group"><label>forma de pagamento</label>
           <select id="f-pagto">
-            <option value="credito">crédito</option>
-            <option value="debito">débito</option>
-            <option value="pix">pix</option>
-            <option value="dinheiro">dinheiro</option>
-            <option value="boleto">boleto</option>
+            <option value="Crédito">Crédito</option>
+            <option value="Débito">Débito</option>
+            <option value="Pix">Pix</option>
+            <option value="Mercado Crédito">Mercado Crédito</option>
+            <option value="Boleto">Boleto</option>
+            <option value="Dinheiro">Dinheiro</option>
           </select>
         </div>
       </div>
@@ -346,7 +372,19 @@
           <option value="outros">💸 outros</option>
         </select>
       </div>
-      <div class="form-group"><label>cartão / conta</label><input type="text" id="mf-cartao" placeholder="ex: Nubank"/></div>
+      <div class="form-group"><label>cartão / conta</label>
+        <select id="mf-cartao">
+          <option value="">— selecione —</option>
+          <option value="Nubank">Nubank</option>
+          <option value="Mercado Pago">Mercado Pago</option>
+          <option value="Bradesco">Bradesco</option>
+          <option value="Inter">Inter</option>
+          <option value="C6">C6</option>
+          <option value="99 Pay">99 Pay</option>
+          <option value="Ticket Alimentação">Ticket Alimentação</option>
+          <option value="CEF">CEF</option>
+        </select>
+      </div>
     </div>
     <div class="form-row">
       <div class="form-group"><label>início</label><input type="month" id="mf-inicio"/></div>
@@ -395,7 +433,15 @@ const db = getDatabase(fbApp);
 const auth = getAuth(fbApp);
 const provider = new GoogleAuthProvider();
 
-const CATS = { moradia:'🏠', alimentacao:'🛒', transporte:'🚗', saude:'💊', educacao:'🎓', lazer:'🎵', vestuario:'👕', receita:'💰', outros:'💸' };
+const CATS = {
+  'Animais de estimação':'🐾', 'Assinaturas digitais':'📱', 'Casa':'🏠',
+  'Comida e bebida':'🍽️', 'Compras':'🛍️', 'Contas e serviços':'📄',
+  'Presentes e doações':'🎁', 'Educação':'🎓', 'Eletrônicos':'💻',
+  'Entretenimento':'🎵', 'Investimento':'📈', 'Roupas':'👕',
+  'Saúde e cuidados pessoais':'💊', 'Supermercado':'🛒', 'Transporte':'🚗',
+  'Viagens':'✈️', 'Bike':'🚲', 'Carro':'🚘', 'Ateliê':'🎨',
+  'Receita':'💰', 'Outros':'💸'
+};
 const brl = v => (v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const parseVal = id => parseFloat(document.getElementById(id).value.replace(',','.'));
 const fmtDate = v => { if(!v) return ''; if(v.includes('-')){ const [y,m,d]=v.split('-'); return `${d}/${m}/${y}`; } return new Date(v).toLocaleDateString('pt-BR'); };
