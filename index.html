@@ -247,9 +247,17 @@
 
   <!-- CATEGORIAS -->
   <div id="sec-categorias" class="section">
-    <div class="card">
+    <div class="card" style="margin-bottom:10px">
       <div class="card-title">gastos por categoria</div>
       <div id="list-cats"><div class="empty">sem dados</div></div>
+    </div>
+    <div class="card" style="margin-bottom:10px">
+      <div class="card-title">gastos por cartão</div>
+      <div id="list-cartoes"><div class="empty">sem dados</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">gastos por forma de pagamento</div>
+      <div id="list-pagto"><div class="empty">sem dados</div></div>
     </div>
   </div>
 
@@ -574,19 +582,34 @@ function renderTx(list) {
   }).join('');
 }
 
-function renderCats(list) {
-  const el = document.getElementById('list-cats');
-  const saidas = list.filter(([,t])=>t.tipo!=='entrada');
-  if (!saidas.length) { el.innerHTML='<div class="empty">sem gastos este mês</div>'; return; }
-  const totals = {};
-  saidas.forEach(([,t]) => { totals[t.cat] = (totals[t.cat]||0)+(t.valor||0); });
-  const max = Math.max(...Object.values(totals));
-  const sorted = Object.entries(totals).sort((a,b)=>b[1]-a[1]);
-  el.innerHTML = sorted.map(([cat,val]) => `
+function renderBars(elId, data, labelFn) {
+  const el = document.getElementById(elId);
+  if (!Object.keys(data).length) { el.innerHTML='<div class="empty">sem dados</div>'; return; }
+  const max = Math.max(...Object.values(data));
+  const sorted = Object.entries(data).sort((a,b)=>b[1]-a[1]);
+  el.innerHTML = sorted.map(([key,val]) => `
     <div class="bar-wrap">
-      <div class="bar-label"><span>${CATS[cat]||'💸'} ${cat}</span><span>R$ ${brl(val)}</span></div>
+      <div class="bar-label"><span>${labelFn(key)}</span><span>R$ ${brl(val)}</span></div>
       <div class="bar-track"><div class="bar-fill" style="width:${Math.round(val/max*100)}%"></div></div>
     </div>`).join('');
+}
+
+function renderCats(list) {
+  const saidas = list.filter(([,t])=>t.tipo!=='entrada');
+  const empty = '<div class="empty">sem gastos este mês</div>';
+  if (!saidas.length) {
+    ['list-cats','list-cartoes','list-pagto'].forEach(id => document.getElementById(id).innerHTML=empty);
+    return;
+  }
+  const byCat={}, byCartao={}, byPagto={};
+  saidas.forEach(([,t]) => {
+    if(t.cat)    byCat[t.cat]    = (byCat[t.cat]||0)+(t.valor||0);
+    if(t.cartao) byCartao[t.cartao] = (byCartao[t.cartao]||0)+(t.valor||0);
+    if(t.pagto)  byPagto[t.pagto]  = (byPagto[t.pagto]||0)+(t.valor||0);
+  });
+  renderBars('list-cats',    byCat,    k => `${CATS[k]||'💸'} ${k}`);
+  renderBars('list-cartoes', byCartao, k => `💳 ${k}`);
+  renderBars('list-pagto',   byPagto,  k => `🔁 ${k}`);
 }
 
 function renderFixos() {
