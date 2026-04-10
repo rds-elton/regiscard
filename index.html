@@ -454,8 +454,8 @@ const brl = v => (v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumF
 const parseVal = id => parseFloat(document.getElementById(id).value.replace(',','.'));
 const fmtDate = v => { if(!v) return ''; if(v.includes('-')){ const [y,m,d]=v.split('-'); return `${d}/${m}/${y}`; } return new Date(v).toLocaleDateString('pt-BR'); };
 const fmtMonth = (y,m) => new Date(y,m,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
-const todayStr = () => new Date().toISOString().slice(0,10);
-const thisMonthStr = () => new Date().toISOString().slice(0,7);
+const todayStr = () => { const d=new Date(); const y=d.getFullYear(); const m=String(d.getMonth()+1).padStart(2,'0'); const day=String(d.getDate()).padStart(2,'0'); return `${y}-${m}-${day}`; };
+const thisMonthStr = () => { const d=new Date(); const y=d.getFullYear(); const m=String(d.getMonth()+1).padStart(2,'0'); return `${y}-${m}`; };
 
 let uid = null;
 let txData = {}, fixosData = {};
@@ -557,7 +557,7 @@ function renderAll() {
 
 function renderTx(list) {
   const el = document.getElementById('list-tx');
-  const sorted = list.sort((a,b)=>(b[1].data||'').localeCompare(a[1].data||''));
+  const sorted = list.sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
   if (!sorted.length) { el.innerHTML='<div class="empty">nenhuma transação este mês</div>'; return; }
   el.innerHTML = sorted.map(([id,t]) => {
     const isOut = t.tipo!=='entrada';
